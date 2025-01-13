@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Prevent in-source builds
@@ -99,8 +99,9 @@ endif()
 if (SCIP_FOUND)
   target_compile_definitions(fp PUBLIC HAS_SCIP=1)
   target_compile_definitions(fp2 PUBLIC HAS_SCIP=1)
+  include_directories (${SCIP_INCLUDE_DIRS})
   target_sources(fp PRIVATE src/scipmodel.cpp)
-  target_link_libraries(fp PUBLIC Scip::Scip)
+  target_link_libraries(fp PUBLIC ${SCIP_LIBRARIES})
 endif()
 
 if (ORTOOLS_FOUND)
